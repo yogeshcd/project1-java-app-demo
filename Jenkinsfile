@@ -15,7 +15,7 @@ pipeline {
                 //     }
                 script {
                     echo "step1"
-                }
+                
                 }
             }
         }
