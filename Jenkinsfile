@@ -8,11 +8,14 @@ pipeline {
                 }
             }
             steps {
+                // script {
+                //     withSonarQubeEnv(credentialsId: 'sonar-token') {
+                //         // some block
+                //         sh 'mvn clean package sonar:sonar'
+                //     }
                 script {
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
-                        // some block
-                        sh 'mvn clean package sonar:sonar'
-                    }
+                    echo "step1"
+                }
                 }
             }
         }
