@@ -23,5 +23,20 @@ pipeline {
                 }
             }
         }
+        stage(" Quality gate") {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                }
+            }
+        }
+        stage("docker build and push to nexus") {
+            steps {
+                script {
+                    sh "ls -l"
+                    sh "docker build -t test-app ."
+                }
+            }
+        }
     }
 }
