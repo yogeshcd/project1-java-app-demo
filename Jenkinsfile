@@ -48,8 +48,23 @@ pipeline {
                     docker rmi 192.168.56.1:8083/springapp:${VERSION}
                     '''                        
                     }
-
                 }
+            }
+        }
+        stage("Upload helm file to nexus repo"){
+            agent {
+                docker { image "alpine/k8s:1.24.12" }
+            }
+            steps {
+                script {
+                    sh '''
+                        helm version
+                        cd kubernetes
+                        helm package myapp
+                        curl -u admin:admin 192.168.56.1:8081/repository/myhelmrepo/ --upload-file myapp-0.2.0.tgz
+                        '''
+                }
+                
             }
         }
     }
