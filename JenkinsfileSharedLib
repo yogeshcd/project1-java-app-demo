@@ -3,6 +3,9 @@
 def config = [name: 'Newman', dayOfWeek: 'Friday']
 pipeline {
     agent any
+    environment {
+        VERSION= "${env.BUILD_ID}"
+    }
     stages {
         stage('say hello') {
             steps {
