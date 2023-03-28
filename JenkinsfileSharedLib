@@ -9,7 +9,7 @@ pipeline {
                 helloWorld([name: 'Someone', dayOfWeek: 'Friday'])
             }
         }
-        stage('sonar quality') {
+        stage('sonar quality check') {
             agent{
                 docker {
                     image 'maven'
@@ -24,7 +24,13 @@ pipeline {
                     sonarQualityCheck()
                 }
             }
-            
+        }
+        stage('sonar gate') {
+            steps {
+                script {
+                    waitForQualityGate()
+                }
+            }
         }
     }
 }
