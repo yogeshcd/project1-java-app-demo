@@ -1,0 +1,25 @@
+@Library('shared-library-demo')
+
+def config = [name: 'Newman', dayOfWeek: 'Friday']
+pipeline {
+    agent any
+    stages {
+        stage('say hello') {
+            steps {
+                helloWorld([name: 'Someone', dayOfWeek: 'Friday'])
+            }
+        }
+        stage('sonar quality') {
+            steps {
+                script {
+                    // withSonarQubeEnv(credentialsId: 'sonar-token') {
+                    //     // some block
+                    //     echo "hello"
+                    // }
+                    sonarQualityCheck()
+                }
+            }
+            
+        }
+    }
+}
